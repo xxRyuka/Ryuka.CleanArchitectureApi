@@ -1,0 +1,17 @@
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Infrastructure\bin\Debug\net8.0\Ryuka.NlayerApi.Infrastructure.deps.json
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Infrastructure\bin\Debug\net8.0\Ryuka.NlayerApi.Infrastructure.runtimeconfig.json
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Infrastructure\bin\Debug\net8.0\Ryuka.NlayerApi.Infrastructure.dll
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Infrastructure\bin\Debug\net8.0\Ryuka.NlayerApi.Infrastructure.pdb
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Infrastructure\bin\Debug\net8.0\Ryuka.NlayerApi.Domain.dll
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Infrastructure\bin\Debug\net8.0\Ryuka.NlayerApi.Domain.pdb
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Infrastructure\obj\Debug\net8.0\Ryuka.NlayerApi.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Infrastructure\obj\Debug\net8.0\Ryuka.NlayerApi.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Infrastructure\obj\Debug\net8.0\Ryuka.NlayerApi.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Infrastructure\obj\Debug\net8.0\Ryuka.NlayerApi.Infrastructure.AssemblyInfo.cs
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Infrastructure\obj\Debug\net8.0\Ryuka.NlayerApi.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Infrastructure\obj\Debug\net8.0\Ryuka.Nl.09788D38.Up2Date
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Infrastructure\obj\Debug\net8.0\Ryuka.NlayerApi.Infrastructure.dll
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Infrastructure\obj\Debug\net8.0\refint\Ryuka.NlayerApi.Infrastructure.dll
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Infrastructure\obj\Debug\net8.0\Ryuka.NlayerApi.Infrastructure.pdb
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Infrastructure\obj\Debug\net8.0\Ryuka.NlayerApi.Infrastructure.genruntimeconfig.cache
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Infrastructure\obj\Debug\net8.0\ref\Ryuka.NlayerApi.Infrastructure.dll

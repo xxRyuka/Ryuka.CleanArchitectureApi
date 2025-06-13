@@ -1,0 +1,17 @@
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.CleanArchitectureApi.Infrastructure\bin\Debug\net8.0\Ryuka.CleanArchitectureApi.Infrastructure.deps.json
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.CleanArchitectureApi.Infrastructure\bin\Debug\net8.0\Ryuka.CleanArchitectureApi.Infrastructure.runtimeconfig.json
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.CleanArchitectureApi.Infrastructure\bin\Debug\net8.0\Ryuka.CleanArchitectureApi.Infrastructure.dll
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.CleanArchitectureApi.Infrastructure\bin\Debug\net8.0\Ryuka.CleanArchitectureApi.Infrastructure.pdb
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.CleanArchitectureApi.Infrastructure\bin\Debug\net8.0\Ryuka.CleanArchitectureApi.Domain.dll
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.CleanArchitectureApi.Infrastructure\bin\Debug\net8.0\Ryuka.CleanArchitectureApi.Domain.pdb
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.CleanArchitectureApi.Infrastructure\obj\Debug\net8.0\Ryuka.CleanArchitectureApi.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.CleanArchitectureApi.Infrastructure\obj\Debug\net8.0\Ryuka.CleanArchitectureApi.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.CleanArchitectureApi.Infrastructure\obj\Debug\net8.0\Ryuka.CleanArchitectureApi.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.CleanArchitectureApi.Infrastructure\obj\Debug\net8.0\Ryuka.CleanArchitectureApi.Infrastructure.AssemblyInfo.cs
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.CleanArchitectureApi.Infrastructure\obj\Debug\net8.0\Ryuka.CleanArchitectureApi.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.CleanArchitectureApi.Infrastructure\obj\Debug\net8.0\Ryuka.Cl.D3B1AB6C.Up2Date
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.CleanArchitectureApi.Infrastructure\obj\Debug\net8.0\Ryuka.CleanArchitectureApi.Infrastructure.dll
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.CleanArchitectureApi.Infrastructure\obj\Debug\net8.0\refint\Ryuka.CleanArchitectureApi.Infrastructure.dll
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.CleanArchitectureApi.Infrastructure\obj\Debug\net8.0\Ryuka.CleanArchitectureApi.Infrastructure.pdb
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.CleanArchitectureApi.Infrastructure\obj\Debug\net8.0\Ryuka.CleanArchitectureApi.Infrastructure.genruntimeconfig.cache
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.CleanArchitectureApi.Infrastructure\obj\Debug\net8.0\ref\Ryuka.CleanArchitectureApi.Infrastructure.dll

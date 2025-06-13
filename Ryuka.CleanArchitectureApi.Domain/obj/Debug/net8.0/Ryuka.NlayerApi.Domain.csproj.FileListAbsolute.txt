@@ -1,0 +1,11 @@
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Domain\bin\Debug\net8.0\Ryuka.NlayerApi.Domain.deps.json
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Domain\bin\Debug\net8.0\Ryuka.NlayerApi.Domain.dll
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Domain\bin\Debug\net8.0\Ryuka.NlayerApi.Domain.pdb
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Domain\obj\Debug\net8.0\Ryuka.NlayerApi.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Domain\obj\Debug\net8.0\Ryuka.NlayerApi.Domain.AssemblyInfoInputs.cache
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Domain\obj\Debug\net8.0\Ryuka.NlayerApi.Domain.AssemblyInfo.cs
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Domain\obj\Debug\net8.0\Ryuka.NlayerApi.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Domain\obj\Debug\net8.0\Ryuka.NlayerApi.Domain.dll
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Domain\obj\Debug\net8.0\refint\Ryuka.NlayerApi.Domain.dll
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Domain\obj\Debug\net8.0\Ryuka.NlayerApi.Domain.pdb
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Domain\obj\Debug\net8.0\ref\Ryuka.NlayerApi.Domain.dll

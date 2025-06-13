@@ -1,0 +1,116 @@
+[
+  {
+    "ContainingType": "Ryuka.NlayerApi.Presentation.Controller.ParkingRecordController",
+    "Method": "Create",
+    "RelativePath": "api/ParkingRecord",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "createParkingRecordDto",
+        "Type": "Ryuka.NlayerApi.Application.Dto.CreateParkingRecordDto",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ryuka.NlayerApi.Presentation.Controller.ParkingRecordController",
+    "Method": "GetAll",
+    "RelativePath": "api/ParkingRecord/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ryuka.NlayerApi.Presentation.Controller.ParkingRecordController",
+    "Method": "Remove",
+    "RelativePath": "api/ParkingRecord/Remoove",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "plateNumber",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ryuka.NlayerApi.Presentation.Controller.SlotController",
+    "Method": "Create",
+    "RelativePath": "api/Slot",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Ryuka.NlayerApi.Application.Dto.SlotDto.CreateSlotDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ryuka.NlayerApi.Presentation.Controller.SlotController",
+    "Method": "GetAll",
+    "RelativePath": "api/Slot",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ryuka.NlayerApi.Presentation.Controller.SlotController",
+    "Method": "Index",
+    "RelativePath": "api/Slot/ping",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ryuka.NlayerApi.Presentation.Controller.VehicleController",
+    "Method": "Create",
+    "RelativePath": "api/Vehicle",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Ryuka.NlayerApi.Application.Dto.VehicleDto.CreateVehicleDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ryuka.NlayerApi.Presentation.Controller.VehicleController",
+    "Method": "GetAll",
+    "RelativePath": "api/Vehicle",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ryuka.NlayerApi.Presentation.Controller.VehicleController",
+    "Method": "Index",
+    "RelativePath": "api/Vehicle/ping",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]

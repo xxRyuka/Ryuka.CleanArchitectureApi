@@ -1,0 +1,33 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ryuka.CleanArchitectureApi.Domain", "Ryuka.CleanArchitectureApi.Domain\Ryuka.CleanArchitectureApi.Domain.csproj", "{29C6183F-1491-4538-A712-ECE305CAF7C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ryuka.CleanArchitectureApi.Infrastructure", "Ryuka.CleanArchitectureApi.Infrastructure\Ryuka.CleanArchitectureApi.Infrastructure.csproj", "{982A51B9-AE64-496C-8F7D-6BE2CB03A5CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ryuka.CleanArchitectureApi.Application", "Ryuka.CleanArchitectureApi.Application\Ryuka.CleanArchitectureApi.Application.csproj", "{46E1C158-673E-49C4-89F7-A6378362302E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ryuka.CleanArchitecture.Api", "Ryuka.CleanArchitecture.Api\Ryuka.CleanArchitecture.Api.csproj", "{00031012-1649-4A39-90CC-57DCFD2054E6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{29C6183F-1491-4538-A712-ECE305CAF7C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29C6183F-1491-4538-A712-ECE305CAF7C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29C6183F-1491-4538-A712-ECE305CAF7C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29C6183F-1491-4538-A712-ECE305CAF7C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{982A51B9-AE64-496C-8F7D-6BE2CB03A5CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{982A51B9-AE64-496C-8F7D-6BE2CB03A5CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{982A51B9-AE64-496C-8F7D-6BE2CB03A5CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{982A51B9-AE64-496C-8F7D-6BE2CB03A5CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46E1C158-673E-49C4-89F7-A6378362302E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46E1C158-673E-49C4-89F7-A6378362302E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46E1C158-673E-49C4-89F7-A6378362302E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46E1C158-673E-49C4-89F7-A6378362302E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00031012-1649-4A39-90CC-57DCFD2054E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00031012-1649-4A39-90CC-57DCFD2054E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00031012-1649-4A39-90CC-57DCFD2054E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00031012-1649-4A39-90CC-57DCFD2054E6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

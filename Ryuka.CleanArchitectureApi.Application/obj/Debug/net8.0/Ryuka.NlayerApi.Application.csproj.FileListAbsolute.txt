@@ -1,0 +1,17 @@
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Application\bin\Debug\net8.0\Ryuka.NlayerApi.Application.deps.json
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Application\bin\Debug\net8.0\Ryuka.NlayerApi.Application.dll
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Application\bin\Debug\net8.0\Ryuka.NlayerApi.Application.pdb
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Application\bin\Debug\net8.0\Ryuka.NlayerApi.Domain.dll
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Application\bin\Debug\net8.0\Ryuka.NlayerApi.Infrastructure.dll
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Application\bin\Debug\net8.0\Ryuka.NlayerApi.Infrastructure.pdb
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Application\bin\Debug\net8.0\Ryuka.NlayerApi.Domain.pdb
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Application\obj\Debug\net8.0\Ryuka.NlayerApi.Application.csproj.AssemblyReference.cache
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Application\obj\Debug\net8.0\Ryuka.NlayerApi.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Application\obj\Debug\net8.0\Ryuka.NlayerApi.Application.AssemblyInfoInputs.cache
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Application\obj\Debug\net8.0\Ryuka.NlayerApi.Application.AssemblyInfo.cs
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Application\obj\Debug\net8.0\Ryuka.NlayerApi.Application.csproj.CoreCompileInputs.cache
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Application\obj\Debug\net8.0\Ryuka.Nl.4A3F3777.Up2Date
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Application\obj\Debug\net8.0\Ryuka.NlayerApi.Application.dll
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Application\obj\Debug\net8.0\refint\Ryuka.NlayerApi.Application.dll
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Application\obj\Debug\net8.0\Ryuka.NlayerApi.Application.pdb
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.NlayerApi.Application\obj\Debug\net8.0\ref\Ryuka.NlayerApi.Application.dll
