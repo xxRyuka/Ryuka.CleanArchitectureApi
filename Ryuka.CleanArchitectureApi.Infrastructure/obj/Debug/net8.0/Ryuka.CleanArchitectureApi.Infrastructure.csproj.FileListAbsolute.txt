@@ -15,3 +15,4 @@ C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.CleanArchitectureApi.Infrastr
 C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.CleanArchitectureApi.Infrastructure\obj\Debug\net8.0\Ryuka.CleanArchitectureApi.Infrastructure.pdb
 C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.CleanArchitectureApi.Infrastructure\obj\Debug\net8.0\Ryuka.CleanArchitectureApi.Infrastructure.genruntimeconfig.cache
 C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.CleanArchitectureApi.Infrastructure\obj\Debug\net8.0\ref\Ryuka.CleanArchitectureApi.Infrastructure.dll
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.CleanArchitectureApi.Infrastructure\obj\Debug\net8.0\Ryuka.CleanArchitectureApi.Infrastructure.sourcelink.json

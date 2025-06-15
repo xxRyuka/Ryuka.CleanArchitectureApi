@@ -74,3 +74,4 @@ C:\Users\Ryuka\RiderProjects\Ryuka.NLayerApi\Ryuka.CleanArchitecture.Api\obj\Deb
 C:\Users\Ryuka\RiderProjects\Ryuka.NLayerApi\Ryuka.CleanArchitecture.Api\obj\Debug\net8.0\Ryuka.CleanArchitecture.Api.pdb
 C:\Users\Ryuka\RiderProjects\Ryuka.NLayerApi\Ryuka.CleanArchitecture.Api\obj\Debug\net8.0\Ryuka.CleanArchitecture.Api.genruntimeconfig.cache
 C:\Users\Ryuka\RiderProjects\Ryuka.NLayerApi\Ryuka.CleanArchitecture.Api\obj\Debug\net8.0\ref\Ryuka.CleanArchitecture.Api.dll
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.CleanArchitecture.Api\obj\Debug\net8.0\Ryuka.CleanArchitecture.Api.sourcelink.json

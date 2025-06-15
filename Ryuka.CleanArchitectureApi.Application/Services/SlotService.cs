@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using Ryuka.NlayerApi.Application.Common.Concrete;
 using Ryuka.NlayerApi.Application.Dto.SlotDto;
 using Ryuka.NlayerApi.Application.Interfaces;
 using Ryuka.NlayerApi.Core.Abstractions;
@@ -15,23 +17,58 @@ public class SlotService : ISlotService
     }
 
 
-    public async Task<SlotDto> GetByIdAsync(int id)
+    public async Task<Result<List<SlotDto>>> GetFreeSlots()
+    {
+        List<string> err = new List<string>();
+        var freeSlots = await _unitOfWork.Slots.Where(x => x.isOccupied == false).ToListAsync();
+        if (freeSlots.Count == 0)
+        {
+            err.Add("No Slots found");
+            return Result<List<SlotDto>>.Failure(err);
+        }
+
+        List<SlotDto> freeSlotsDto = new List<SlotDto>();
+        //manual mapping 
+        foreach (var slot in freeSlots)
+        {
+            freeSlotsDto.Add(new SlotDto()
+            {
+                isOccupied = slot.isOccupied,
+                id = slot.Id,
+            });
+        }
+
+        var msg = $"{freeSlots.Count} Slots found";
+        return Result<List<SlotDto>>.Success(freeSlotsDto,msg);
+    }
+
+    public async Task<Result<SlotDto>> GetByIdAsync(int id)
     {
         var entity = await _unitOfWork.Slots.FindAsync(id);
-
+        var errList = new List<string>();
+        if (entity == null)
+        {
+            errList.Add("slot is not found");
+            return Result<SlotDto>.Failure(errList);
+        }
         SlotDto dto = new SlotDto()
         {
             id = entity.Id,
-           isOccupied = entity.isOccupied
+            isOccupied = entity.isOccupied
         };
 
-        return dto;
+        return Result<SlotDto>.Success(dto);
     }
 
-    public async Task<IEnumerable<SlotDto>> GetAllAsync()
+    public async Task<Result<IEnumerable<SlotDto>>> GetAllAsync()
     {
         var entities = await _unitOfWork.Slots.GetAllAsync();
-
+        var errList = new List<string>();
+        if (entities.Count==0)
+        {
+            errList.Add("No Slots found");
+            return Result<IEnumerable<SlotDto>>.Failure(errList);
+        }
         var list = new List<SlotDto>();
 
         foreach (var entity in entities)
@@ -42,12 +79,12 @@ public class SlotService : ISlotService
                 isOccupied = entity.isOccupied,
             });
         }
-
-
-        return list;
+        
+        return Result<IEnumerable<SlotDto>>.Success(list,message:"islem Basarili");
+        
     }
 
-    public async Task<SlotDto> CreateAsync(CreateSlotDto dto)
+    public async Task<Result<SlotDto>> CreateAsync(CreateSlotDto dto)
     {
         var entity = new Slot()
         {
@@ -62,32 +99,38 @@ public class SlotService : ISlotService
             isOccupied = entity.isOccupied,
         };
 
-        return newDto;
+        return Result<SlotDto>.Success(newDto, message:"slot olusturma islemi Basarili");
     }
 
-    public async Task<bool> UpdateAsync(int id, UpdateSlotDto dto)
+    public async Task<Result> UpdateAsync(int id, UpdateSlotDto dto)
     {
         var entity = await _unitOfWork.Slots.FindAsync(id);
+        var errList = new List<string>(); 
         if (entity == null)
         {
-            Console.WriteLine("Slot not found");
-            return false;
+            errList.Add("slot No found");
+            // Console.WriteLine("Slot not found");
+            return Result.Fail(errList);
         }
-        
+
         entity.isOccupied = dto.isOccupied;
         _unitOfWork.Slots.Update(entity);
         await _unitOfWork.SaveChangesAsync();
-        
-        return true;
+
+        return Result.Succses($"{id}'li slot güncelleme islemi Basarili");
     }
 
-    public async Task<bool> DeleteAsync(int id)
+    public async Task<Result> DeleteAsync(int id)
     {
         var entity = await _unitOfWork.Slots.FindAsync(id);
-        if (entity == null)  
-        {return false;}
+        var errlist = new List<string>();
+        if (entity == null)
+        {
+            errlist.Add("No Slots found");
+            return Result.Fail(errlist);
+        }
+
         _unitOfWork.Slots.Delete(entity);
         await _unitOfWork.SaveChangesAsync();
-        return true;
-    }
+        return Result.Succses($"{id}'li slot silme işlemi islemi Basarili");    }
 }

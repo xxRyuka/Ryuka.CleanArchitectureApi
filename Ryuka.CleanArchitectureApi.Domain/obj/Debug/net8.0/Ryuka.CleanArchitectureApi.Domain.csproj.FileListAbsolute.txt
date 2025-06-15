@@ -9,3 +9,4 @@ C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.CleanArchitectureApi.Domain\o
 C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.CleanArchitectureApi.Domain\obj\Debug\net8.0\refint\Ryuka.CleanArchitectureApi.Domain.dll
 C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.CleanArchitectureApi.Domain\obj\Debug\net8.0\Ryuka.CleanArchitectureApi.Domain.pdb
 C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.CleanArchitectureApi.Domain\obj\Debug\net8.0\ref\Ryuka.CleanArchitectureApi.Domain.dll
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.CleanArchitectureApi.Domain\obj\Debug\net8.0\Ryuka.CleanArchitectureApi.Domain.sourcelink.json

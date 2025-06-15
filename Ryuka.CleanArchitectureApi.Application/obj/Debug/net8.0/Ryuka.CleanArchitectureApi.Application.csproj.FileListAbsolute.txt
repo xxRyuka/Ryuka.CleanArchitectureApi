@@ -15,3 +15,4 @@ C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.CleanArchitectureApi.Applicat
 C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.CleanArchitectureApi.Application\obj\Debug\net8.0\refint\Ryuka.CleanArchitectureApi.Application.dll
 C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.CleanArchitectureApi.Application\obj\Debug\net8.0\Ryuka.CleanArchitectureApi.Application.pdb
 C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.CleanArchitectureApi.Application\obj\Debug\net8.0\ref\Ryuka.CleanArchitectureApi.Application.dll
+C:\Users\Ryuka\RiderProjects\Ryuka.NlayerApi\Ryuka.CleanArchitectureApi.Application\obj\Debug\net8.0\Ryuka.CleanArchitectureApi.Application.sourcelink.json
