@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Ryuka.NlayerApi.Application.Dto.VehicleDto;
 using Ryuka.NlayerApi.Application.Interfaces;
 
@@ -15,24 +16,45 @@ public class VehicleController : ControllerBase
         _vehicleService = vehicleService;
     }
 
-    // GET
     [HttpGet("ping")]
     public IActionResult Index()
     {
-        return Ok();
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> Create(CreateVehicleDto dto)
-    {
-        await _vehicleService.CreateAsync(dto);
-        return Ok(dto);
+        return Ok("woırked");
+        
     }
 
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-     var vehicles = await  _vehicleService.GetAllAsync();
-        return Ok(vehicles);
+        var result = await _vehicleService.GetAllAsync();
+        return result.isFailure ? NotFound(result.Errors) : Ok(result);
+    }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetById(int id)
+    {
+        var result = await _vehicleService.GetByIdAsync(id);
+        return result.isFailure ? NotFound(result.Errors) : Ok(result);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create(CreateVehicleDto dto)
+    {
+        var result = await _vehicleService.CreateAsync(dto);
+        return result.isFailure ? BadRequest(result.Errors) : Ok(result);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(int id, UpdateVehicleDto dto)
+    {
+        var result = await _vehicleService.UpdateAsync(id, dto);
+        return result.isFailure ? BadRequest(result.Errors) : Ok(result);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var result = await _vehicleService.DeleteAsync(id);
+        return result.isFailure ? NotFound(result.Errors) : Ok(result);
     }
 }

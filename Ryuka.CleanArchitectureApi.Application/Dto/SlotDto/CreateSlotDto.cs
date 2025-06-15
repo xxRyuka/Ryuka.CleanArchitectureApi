@@ -4,3 +4,7 @@ public class CreateSlotDto
 {
     public bool isOccupied { get; set; }
 }
+
+// mimari 
+// bagimlillikların ayrtılması 
+// soyutlamalar 

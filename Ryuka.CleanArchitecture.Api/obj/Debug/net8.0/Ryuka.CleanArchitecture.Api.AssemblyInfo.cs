@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Ryuka.CleanArchitecture.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ece0c8216059c3f04d7eecb2f4e983d9cfb6f70d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4d8b276401c9bc228ff32328908cb301d520e12f")]
 [assembly: System.Reflection.AssemblyProductAttribute("Ryuka.CleanArchitecture.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Ryuka.CleanArchitecture.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

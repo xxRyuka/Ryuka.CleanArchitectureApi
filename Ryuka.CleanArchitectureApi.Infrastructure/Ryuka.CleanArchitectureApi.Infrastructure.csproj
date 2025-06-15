@@ -24,4 +24,8 @@
       <ProjectReference Include="..\Ryuka.CleanArchitectureApi.Domain\Ryuka.CleanArchitectureApi.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Migrations\" />
+    </ItemGroup>
+
 </Project>

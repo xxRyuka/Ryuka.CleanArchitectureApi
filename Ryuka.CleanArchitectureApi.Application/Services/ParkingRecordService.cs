@@ -1,5 +1,6 @@
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
+using Ryuka.NlayerApi.Application.Common.Concrete;
 using Ryuka.NlayerApi.Application.Dto;
 using Ryuka.NlayerApi.Application.Dto.SlotDto;
 using Ryuka.NlayerApi.Application.Dto.VehicleDto;
@@ -24,11 +25,13 @@ public class ParkingRecordService : IParkingRecordService
         return await _unitOfWork.Slots.Where(s => s.isOccupied == false).FirstOrDefaultAsync();
     }
 
-    public async Task<string> CreateAsync(CreateParkingRecordDto? dto)
+    public async Task<Result<ParkingRecordDto>> CreateAsync(CreateParkingRecordDto? dto)
     {
+        var errList = new List<string>();
         if (dto == null)
         {
-            return "dto is null";
+            errList.Add("dto is null");
+            return Result<ParkingRecordDto>.Failure(errList);
         }
 
         try
@@ -36,18 +39,19 @@ public class ParkingRecordService : IParkingRecordService
             await _unitOfWork.BeginTransaction(); // transactionu baslatiyoruz 
 
 
-            var vehicle = await _unitOfWork.Vehicles.Where(w => w.PlateNumber == dto.VehiclePlate)
-                .FirstOrDefaultAsync();
+                var vehicle = await _unitOfWork.Vehicles.Where(w => w.PlateNumber == dto.VehiclePlate)
+                    .FirstOrDefaultAsync();
 
             bool aracEkli = await _unitOfWork.ParkingRecords
                 .Table
-                .Include(c=>c.Vehicle)
-                .AnyAsync(cs=>cs.Vehicle.PlateNumber == dto.VehiclePlate);
+                .Include(c => c.Vehicle)
+                .AnyAsync(cs => cs.Vehicle.PlateNumber == dto.VehiclePlate);
             if (aracEkli)
             {
-                var slotidd = await _unitOfWork.ParkingRecords.FirstOrDefaultAsync(w => w.VehicleId == vehicle.Id);
-                
-                return $" Araba zaten ekli  mevcut slot : {slotidd.SlotId} ";
+                var slotidd = await _unitOfWork.ParkingRecords
+                    .FirstOrDefaultAsync(w => w.VehicleId == vehicle.Id && w.ExitTime==null);
+                errList.Add("Vehicle already exists");
+                return Result<ParkingRecordDto>.Failure(errList);
             }
 
             if (vehicle == null)
@@ -73,7 +77,8 @@ public class ParkingRecordService : IParkingRecordService
                 slot = await _unitOfWork.Slots.Where(s => s.isOccupied == false).FirstOrDefaultAsync();
                 if (slot.isOccupied == true)
                 {
-                    return "all slots are full";
+                    errList.Add("all slots are full");
+                    return Result<ParkingRecordDto>.Failure(errList);
                 }
             }
 
@@ -92,75 +97,93 @@ public class ParkingRecordService : IParkingRecordService
             await _unitOfWork
                 .CommitTransaction(); // Buraya kadar bir sorun olusmadiysa artik veritabanina gonderebiliriz değişiklierimizi
 
-            return $"{dto.VehiclePlate} plakali aracin islem basarili  slot id {slot.Id}";
+            ParkingRecordDto prDTO = new ParkingRecordDto()
+            {
+                EntryTime = entity.EntryTime,
+                VehicleId = entity.VehicleId,
+                SlotId = slot.Id,
+            };
+            return Result<ParkingRecordDto>.Success(prDTO,
+                message: $"{dto.VehiclePlate} plakali aracin islem basarili  slot id {slot.Id}");
         }
         catch (Exception e)
         {
             await _unitOfWork.RollbackTransaction(); // Eger bir sorun olustuysa bu sekilde geri aliyoruz değişiklikleri
-            return e.Message;
+            return Result<ParkingRecordDto>.Failure(errList, e.Message);
         }
-    }
+    } // Refactored 
 
-    public async Task<string> ExitAsync(string plate)
+  public async Task<Result> ExitAsync(string plate)
+{
+    var errList = new List<string>();
+    try
     {
-        try
+        var record = await _unitOfWork.ParkingRecords
+            .Table
+            .Include(v => v.Vehicle)
+            .Include(p => p.Slot)
+            .FirstOrDefaultAsync(v =>
+                v.Vehicle.PlateNumber == plate);
+
+        if (record == null)
         {
-            var record = await _unitOfWork.ParkingRecords
-                .Table
-                .Include(v => v.Vehicle)
-                .Include(p => p.Slot)
-                .FirstOrDefaultAsync(v => v.Vehicle.PlateNumber == plate ); // && v.Slot.isOccupied == true ekleyerek daha düzgün yazicaz sorguyu
-                                                                                        // ama bi kontrol etmem lazim digerlerini
-
-            if (record == null)
-            {
-                return "record is null";
-            }
-
-            await _unitOfWork.BeginTransaction();
-            
-            // zaten record ifadesinde dolu ise getir dediğim için slot zaten doludur tekrardan kontrolunu saglamaya gerek yok 
-            record.Slot.isOccupied = false; // slotu boşalt 
-
-            record.ExitTime = DateTime.UtcNow;
-
-            var duration = (record.ExitTime - record.EntryTime).TotalSeconds;
-            record.Price = (int)(duration);
-            await _unitOfWork.SaveChangesAsync();
-            await _unitOfWork.CommitTransaction();
-
-            ParkingRecordDto dto = new ParkingRecordDto()
-            {
-                Slot = new SlotDto()
-                {
-                    id = record.Slot.Id,
-                    isOccupied = record.Slot.isOccupied,
-                },
-                EntryTime = record.EntryTime,
-                ExitTime = record.ExitTime,
-                VehicleId = record.Vehicle.Id,
-                Vehicle = new VehicleDto()
-                {
-                    PlateNumber = record.Vehicle.PlateNumber,
-                    id = record.Vehicle.Id,
-                },
-                SlotId = record.Slot.Id,
-                id = record.Id,
-                Price = record.Price,
-            };
-            return $"{dto.Vehicle.PlateNumber} aracin cikis islemi basarili {dto.Price} odeyeceksiniz";
+            errList.Add("record is null");
+            return Result.Fail(errList);
         }
-        catch (Exception e)
+
+        await _unitOfWork.BeginTransaction();
+
+        // Slot boşaltma
+        record.Slot.isOccupied = false;
+
+        // Çıkış zamanı nullable DateTime? olduğundan burası sorun çıkarmaz
+        record.ExitTime = DateTime.UtcNow;
+
+        // Duration hesaplaması için null kontrolü yapılmalı
+        if (record.ExitTime == null)
         {
+            errList.Add("ExitTime is null, cannot calculate duration");
             await _unitOfWork.RollbackTransaction();
-            return $"error: {e.Message}";
+            return Result.Fail(errList);
         }
 
+        var duration = (record.ExitTime.Value - record.EntryTime).TotalSeconds;
+        record.Price = (int)(duration);
 
-        return "ok";
+        await _unitOfWork.SaveChangesAsync();
+        await _unitOfWork.CommitTransaction();
+
+        ParkingRecordDto dto = new ParkingRecordDto()
+        {
+            Slot = new SlotDto()
+            {
+                id = record.Slot.Id,
+                isOccupied = record.Slot.isOccupied,
+            },
+            EntryTime = record.EntryTime,
+            ExitTime = record.ExitTime.Value, // Burada DTO da nullable DateTime? olmalı
+            VehicleId = record.Vehicle.Id,
+            Vehicle = new VehicleDto()
+            {
+                PlateNumber = record.Vehicle.PlateNumber,
+                id = record.Vehicle.Id,
+            },
+            SlotId = record.Slot.Id,
+            id = record.Id,
+            Price = record.Price,
+        };
+
+        return Result.Succses(
+            message: $"{dto.Vehicle.PlateNumber} aracin cikis islemi basarili {dto.Price} odeyeceksiniz");
     }
+    catch (Exception e)
+    {
+        await _unitOfWork.RollbackTransaction();
+        return Result.Fail(errList, e.Message);
+    }
+}
 
-    public async Task<List<ParkingRecordDto>> GetAllAsync()
+    public async Task<Result<IEnumerable<ParkingRecordDto>>> GetAllAsync()
     {
         var list = new List<ParkingRecordDto>();
         var parkingRecords = await _unitOfWork.ParkingRecords
@@ -187,17 +210,130 @@ public class ParkingRecordService : IParkingRecordService
                 EntryTime = item.EntryTime,
                 VehicleId = item.Vehicle.Id,
                 SlotId = item.Slot.Id,
-                ExitTime = item.ExitTime,
+                ExitTime = item.ExitTime.Value,
                 Price = item.Price,
             };
             list.Add(dto);
         }
 
-        return list;
+        return Result<IEnumerable<ParkingRecordDto>>.Success(list);
+    } //Refactored 
+
+    public async Task<Result<ParkingRecordDto>> GetByIdAsync(int id)
+    {
+        var errList = new List<string>();
+
+        var record = await _unitOfWork.ParkingRecords
+            .Table
+            .Include(pr => pr.Vehicle)
+            .Include(pr => pr.Slot)
+            .FirstOrDefaultAsync(pr => pr.Id == id);
+
+        if (record == null)
+        {
+            errList.Add($"id : {id} record is null");
+            return Result<ParkingRecordDto>.Failure(errList);
+        }
+
+        var dto = new ParkingRecordDto()
+        {
+            EntryTime = record.EntryTime,
+            ExitTime = record.ExitTime.Value,
+            VehicleId = record.Vehicle.Id,
+            Vehicle = new VehicleDto()
+            {
+                id = record.Vehicle.Id,
+                PlateNumber = record.Vehicle.PlateNumber,
+            },
+            SlotId = record.Slot.Id,
+            Slot = new SlotDto()
+            {
+                id = record.Slot.Id,
+                isOccupied = record.Slot.isOccupied,
+            },
+            id = record.Id,
+            Price = record.Price,
+        };
+        return Result<ParkingRecordDto>.Success(dto);
+    } // İmplemented and Refactored 
+
+    public async Task<Result<ParkingRecordDto>> GetActiveByVehiclePlateAsync(string plate)
+    {
+        var errList = new List<string>();
+        var record = await _unitOfWork
+            .ParkingRecords
+            .Table
+            .Include(pr => pr.Vehicle)
+            .Include(pr => pr.Slot)
+            .FirstOrDefaultAsync(pr =>
+                pr.Vehicle.PlateNumber == plate && pr.ExitTime == null); // Cıkıs yapmamıs ve plakaya gore query
+
+        if (record == null)
+        {
+            errList.Add($"plate :  {plate} record is null");
+            return Result<ParkingRecordDto>.Failure(errList);
+        }
+
+        var dto = new ParkingRecordDto()
+        {
+            EntryTime = record.EntryTime,
+            ExitTime = record.ExitTime.Value,
+            VehicleId = record.Vehicle.Id,
+            Vehicle = new VehicleDto()
+            {
+                id = record.Vehicle.Id,
+                PlateNumber = record.Vehicle.PlateNumber,
+            },
+            SlotId = record.Slot.Id,
+            Slot = new SlotDto()
+            {
+                id = record.Slot.Id,
+                isOccupied = record.Slot.isOccupied,
+            },
+            id = record.Id,
+            Price = record.Price,
+        };
+        return Result<ParkingRecordDto>.Success(dto);
+    } // İmplemented and Refactored
+
+
+    public async Task<Result<IEnumerable<ParkingRecordDto>>> GetHistoryByPlateAsync(string plate)
+    {
+        var errList = new List<string>();
+
+        var records = await _unitOfWork
+            .ParkingRecords
+            .Table
+            .Include(pr => pr.Vehicle)
+            .Include(pr => pr.Slot)
+            .Where(pr => pr.Vehicle.PlateNumber == plate)
+            .ToListAsync();
+        // Secilen plakaya gore kayitlari getir 
+
+        var dtoList = records.Select(record => new ParkingRecordDto()
+        {
+            EntryTime = record.EntryTime,
+            ExitTime = record.ExitTime.Value,
+            VehicleId = record.Vehicle.Id,
+            Vehicle = new VehicleDto()
+            {
+                id = record.Vehicle.Id,
+                PlateNumber = record.Vehicle.PlateNumber,
+            },
+            SlotId = record.Slot.Id,
+            Slot = new SlotDto()
+            {
+                id = record.Slot.Id,
+                isOccupied = record.Slot.isOccupied,
+            }
+        }).ToList();
+        return Result<IEnumerable<ParkingRecordDto>>.Success(dtoList);  
     }
 
-    public Task<ParkingRecordDto> GetByIdAsync(int id)
+    public async Task<Result> GetOccupiedSlotCountAsync()
     {
-        throw new NotImplementedException();
+        int count = await _unitOfWork.Slots.CountAsync(s => s.isOccupied);
+
+        return Result.Succses(message: $" {count} adet dolu slot var  ");
     }
 }

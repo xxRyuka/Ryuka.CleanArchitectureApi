@@ -20,7 +20,9 @@ public class SlotService : ISlotService
     public async Task<Result<List<SlotDto>>> GetFreeSlots()
     {
         List<string> err = new List<string>();
-        var freeSlots = await _unitOfWork.Slots.Where(x => x.isOccupied == false).ToListAsync();
+        var freeSlots = await _unitOfWork.Slots
+            .Where(x => x.isOccupied == false)
+            .ToListAsync();
         if (freeSlots.Count == 0)
         {
             err.Add("No Slots found");
