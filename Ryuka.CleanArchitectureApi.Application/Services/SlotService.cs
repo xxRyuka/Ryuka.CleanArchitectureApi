@@ -88,6 +88,10 @@ public class SlotService : ISlotService
 
     public async Task<Result<SlotDto>> CreateAsync(CreateSlotDto dto)
     {
+        if (dto is null)
+        {
+            return Result<SlotDto>.Failure(new List<string>(){"slot dto is null"});
+        }
         var entity = new Slot()
         {
             isOccupied = dto.isOccupied,

@@ -45,11 +45,11 @@ public class ParkingRecordService : IParkingRecordService
             bool aracEkli = await _unitOfWork.ParkingRecords
                 .Table
                 .Include(c => c.Vehicle)
-                .AnyAsync(cs => cs.Vehicle.PlateNumber == dto.VehiclePlate);
+                .AnyAsync(cs => cs.Vehicle.PlateNumber == dto.VehiclePlate && cs.ExitTime==DateTime.MinValue);
             if (aracEkli)
             {
                 var slotidd = await _unitOfWork.ParkingRecords
-                    .FirstOrDefaultAsync(w => w.VehicleId == vehicle.Id && w.ExitTime==null);
+                    .FirstOrDefaultAsync(w => w.VehicleId == vehicle.Id && w.ExitTime==DateTime.MinValue);
                 errList.Add("Vehicle already exists");
                 return Result<ParkingRecordDto>.Failure(errList);
             }
@@ -70,12 +70,12 @@ public class ParkingRecordService : IParkingRecordService
 
             var slot = await _unitOfWork.Slots.Where(s => s.Id == dto.SlotDtoId).FirstOrDefaultAsync();
 
-            if (slot == null || slot.isOccupied == true)
+            if (slot == null || slot?.isOccupied == true) 
             {
                 Console.WriteLine("slot is null");
                 // Slot Boş ise boşta olan herhangi bir slota alabiliriz arabayi
                 slot = await _unitOfWork.Slots.Where(s => s.isOccupied == false).FirstOrDefaultAsync();
-                if (slot.isOccupied == true)
+                if (slot == null)
                 {
                     errList.Add("all slots are full");
                     return Result<ParkingRecordDto>.Failure(errList);
@@ -270,14 +270,14 @@ public class ParkingRecordService : IParkingRecordService
 
         if (record == null)
         {
-            errList.Add($"plate :  {plate} record is null");
+            errList.Add($"plate :  {plate} active record is null");
             return Result<ParkingRecordDto>.Failure(errList);
         }
 
         var dto = new ParkingRecordDto()
         {
             EntryTime = record.EntryTime,
-            ExitTime = record.ExitTime.Value,
+            ExitTime = record.ExitTime ?? DateTime.MinValue, // null ise hatayla karsılasiyoruz
             VehicleId = record.Vehicle.Id,
             Vehicle = new VehicleDto()
             {
@@ -312,8 +312,10 @@ public class ParkingRecordService : IParkingRecordService
 
         var dtoList = records.Select(record => new ParkingRecordDto()
         {
+            Price = record.Price,
+            id = record.Id,
             EntryTime = record.EntryTime,
-            ExitTime = record.ExitTime.Value,
+            ExitTime = record.ExitTime ?? DateTime.MinValue,
             VehicleId = record.Vehicle.Id,
             Vehicle = new VehicleDto()
             {

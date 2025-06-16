@@ -12,7 +12,7 @@ using Ryuka.NlayerApi.Infrastructure.Data;
 namespace Ryuka.NlayerApi.Infrastructure.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    [Migration("20250615155112_Initial")]
+    [Migration("20250616012232_Initial")]
     partial class Initial
     {
         /// <inheritdoc />

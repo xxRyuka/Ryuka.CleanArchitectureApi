@@ -13,7 +13,7 @@ public interface IParkingRecordService
     Task<Result<ParkingRecordDto>> GetActiveByVehiclePlateAsync(string plate);
     Task<Result<IEnumerable<ParkingRecordDto>>> GetHistoryByPlateAsync(string plate);
     Task<Result> GetOccupiedSlotCountAsync();
-
+    
 
 
 
