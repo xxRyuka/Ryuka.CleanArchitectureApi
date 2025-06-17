@@ -11,4 +11,8 @@
       <ProjectReference Include="..\Ryuka.CleanArchitectureApi.Infrastructure\Ryuka.CleanArchitectureApi.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="12.0.0" />
+    </ItemGroup>
+
 </Project>

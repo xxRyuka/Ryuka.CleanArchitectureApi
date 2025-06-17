@@ -1,4 +1,5 @@
 using System.Text.Json;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Ryuka.NlayerApi.Application.Common.Concrete;
 using Ryuka.NlayerApi.Application.Dto;
@@ -14,10 +15,12 @@ namespace Ryuka.NlayerApi.Application.Services;
 public class ParkingRecordService : IParkingRecordService
 {
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IMapper _mapper;
 
-    public ParkingRecordService(IUnitOfWork unitOfWork)
+    public ParkingRecordService(IUnitOfWork unitOfWork, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
+        _mapper = mapper;
     }
 
     private async Task<Slot> returnFreeSlot()
@@ -96,15 +99,17 @@ public class ParkingRecordService : IParkingRecordService
             await _unitOfWork.SaveChangesAsync();
             await _unitOfWork
                 .CommitTransaction(); // Buraya kadar bir sorun olusmadiysa artik veritabanina gonderebiliriz değişiklierimizi
-
-            ParkingRecordDto prDTO = new ParkingRecordDto()
-            {
-                EntryTime = entity.EntryTime,
-                VehicleId = entity.VehicleId,
-                SlotId = slot.Id,
-            };
-            return Result<ParkingRecordDto>.Success(prDTO,
-                message: $"{dto.VehiclePlate} plakali aracin islem basarili  slot id {slot.Id}");
+            //
+            // ParkingRecordDto prDTO = new ParkingRecordDto()
+            // {
+            //     EntryTime = entity.EntryTime,
+            //     VehicleId = entity.VehicleId,
+            //     SlotId = slot.Id,
+            // };
+            
+            var mappedDto = _mapper.Map<ParkingRecord,ParkingRecordDto>(entity);
+            return Result<ParkingRecordDto>.Success(mappedDto,
+                message: $"{mappedDto.Vehicle.PlateNumber} plakali aracin islem basarili  slot id {mappedDto.SlotId}");
         }
         catch (Exception e)
         {
@@ -113,7 +118,7 @@ public class ParkingRecordService : IParkingRecordService
         }
     } // Refactored 
 
-  public async Task<Result> ExitAsync(string plate)
+  public async Task<Result> ExitAsync(string plate) // mapped
 {
     var errList = new List<string>();
     try
@@ -153,28 +158,30 @@ public class ParkingRecordService : IParkingRecordService
         await _unitOfWork.SaveChangesAsync();
         await _unitOfWork.CommitTransaction();
 
-        ParkingRecordDto dto = new ParkingRecordDto()
-        {
-            Slot = new SlotDto()
-            {
-                id = record.Slot.Id,
-                isOccupied = record.Slot.isOccupied,
-            },
-            EntryTime = record.EntryTime,
-            ExitTime = record.ExitTime.Value, // Burada DTO da nullable DateTime? olmalı
-            VehicleId = record.Vehicle.Id,
-            Vehicle = new VehicleDto()
-            {
-                PlateNumber = record.Vehicle.PlateNumber,
-                id = record.Vehicle.Id,
-            },
-            SlotId = record.Slot.Id,
-            id = record.Id,
-            Price = record.Price,
-        };
+        var mappedDto =  _mapper.Map<ParkingRecord, ParkingRecordDto>(record);
+        
+        // ParkingRecordDto dto = new ParkingRecordDto()
+        // {
+        //     Slot = new SlotDto()
+        //     {
+        //         id = record.Slot.Id,
+        //         isOccupied = record.Slot.isOccupied,
+        //     },
+        //     EntryTime = record.EntryTime,
+        //     ExitTime = record.ExitTime.Value, // Burada DTO da nullable DateTime? olmalı
+        //     VehicleId = record.Vehicle.Id,
+        //     Vehicle = new VehicleDto()
+        //     {
+        //         PlateNumber = record.Vehicle.PlateNumber,
+        //         id = record.Vehicle.Id,
+        //     },
+        //     SlotId = record.Slot.Id,
+        //     id = record.Id,
+        //     Price = record.Price,
+        // };
 
         return Result.Succses(
-            message: $"{dto.Vehicle.PlateNumber} aracin cikis islemi basarili {dto.Price} odeyeceksiniz");
+            message: $"{mappedDto.Vehicle.PlateNumber} aracin cikis islemi basarili {mappedDto.Price} odeyeceksiniz");
     }
     catch (Exception e)
     {
@@ -183,43 +190,45 @@ public class ParkingRecordService : IParkingRecordService
     }
 }
 
-    public async Task<Result<IEnumerable<ParkingRecordDto>>> GetAllAsync()
+    public async Task<Result<IEnumerable<ParkingRecordDto>>> GetAllAsync() // mapped
     {
-        var list = new List<ParkingRecordDto>();
+        // var list = new List<ParkingRecordDto>();
         var parkingRecords = await _unitOfWork.ParkingRecords
             .Where(pr => pr.EntryTime != null)
             .Include(pr => pr.Vehicle)
             .Include(pr => pr.Slot).ToListAsync();
 
 
-        foreach (var item in parkingRecords)
-        {
-            ParkingRecordDto dto = new ParkingRecordDto()
-            {
-                id = item.Id,
-                Slot = new SlotDto()
-                {
-                    isOccupied = item.Slot.isOccupied,
-                    id = item.Slot.Id
-                },
-                Vehicle = new VehicleDto()
-                {
-                    id = item.Vehicle.Id,
-                    PlateNumber = item.Vehicle.PlateNumber,
-                },
-                EntryTime = item.EntryTime,
-                VehicleId = item.Vehicle.Id,
-                SlotId = item.Slot.Id,
-                ExitTime = item.ExitTime.Value,
-                Price = item.Price,
-            };
-            list.Add(dto);
-        }
+        var MappedList = _mapper.Map<IEnumerable<ParkingRecord>, IEnumerable<ParkingRecordDto>>(parkingRecords);
+        
+        // foreach (var item in parkingRecords)
+        // {
+        //     ParkingRecordDto dto = new ParkingRecordDto()
+        //     {
+        //         id = item.Id,
+        //         Slot = new SlotDto()
+        //         {
+        //             isOccupied = item.Slot.isOccupied,
+        //             id = item.Slot.Id
+        //         },
+        //         Vehicle = new VehicleDto()
+        //         {
+        //             id = item.Vehicle.Id,
+        //             PlateNumber = item.Vehicle.PlateNumber,
+        //         },
+        //         EntryTime = item.EntryTime,
+        //         VehicleId = item.Vehicle.Id,
+        //         SlotId = item.Slot.Id,
+        //         ExitTime = item.ExitTime.Value,
+        //         Price = item.Price,
+        //     };
+        //     list.Add(dto);
+        // }
 
-        return Result<IEnumerable<ParkingRecordDto>>.Success(list);
+        return Result<IEnumerable<ParkingRecordDto>>.Success(MappedList);
     } //Refactored 
 
-    public async Task<Result<ParkingRecordDto>> GetByIdAsync(int id)
+    public async Task<Result<ParkingRecordDto>> GetByIdAsync(int id) // mapped
     {
         var errList = new List<string>();
 
@@ -235,29 +244,30 @@ public class ParkingRecordService : IParkingRecordService
             return Result<ParkingRecordDto>.Failure(errList);
         }
 
-        var dto = new ParkingRecordDto()
-        {
-            EntryTime = record.EntryTime,
-            ExitTime = record.ExitTime.Value,
-            VehicleId = record.Vehicle.Id,
-            Vehicle = new VehicleDto()
-            {
-                id = record.Vehicle.Id,
-                PlateNumber = record.Vehicle.PlateNumber,
-            },
-            SlotId = record.Slot.Id,
-            Slot = new SlotDto()
-            {
-                id = record.Slot.Id,
-                isOccupied = record.Slot.isOccupied,
-            },
-            id = record.Id,
-            Price = record.Price,
-        };
-        return Result<ParkingRecordDto>.Success(dto);
+        var mappedDto =  _mapper.Map<ParkingRecord, ParkingRecordDto>(record);
+        // var dto = new ParkingRecordDto()
+        // {
+        //     EntryTime = record.EntryTime,
+        //     ExitTime = record.ExitTime.Value,
+        //     VehicleId = record.Vehicle.Id,
+        //     Vehicle = new VehicleDto()
+        //     {
+        //         id = record.Vehicle.Id,
+        //         PlateNumber = record.Vehicle.PlateNumber,
+        //     },
+        //     SlotId = record.Slot.Id,
+        //     Slot = new SlotDto()
+        //     {
+        //         id = record.Slot.Id,
+        //         isOccupied = record.Slot.isOccupied,
+        //     },
+        //     id = record.Id,
+        //     Price = record.Price,
+        // };
+        return Result<ParkingRecordDto>.Success(mappedDto);
     } // İmplemented and Refactored 
 
-    public async Task<Result<ParkingRecordDto>> GetActiveByVehiclePlateAsync(string plate)
+    public async Task<Result<ParkingRecordDto>> GetActiveByVehiclePlateAsync(string plate) // mapped
     {
         var errList = new List<string>();
         var record = await _unitOfWork
@@ -273,31 +283,32 @@ public class ParkingRecordService : IParkingRecordService
             errList.Add($"plate :  {plate} active record is null");
             return Result<ParkingRecordDto>.Failure(errList);
         }
-
-        var dto = new ParkingRecordDto()
-        {
-            EntryTime = record.EntryTime,
-            ExitTime = record.ExitTime ?? DateTime.MinValue, // null ise hatayla karsılasiyoruz
-            VehicleId = record.Vehicle.Id,
-            Vehicle = new VehicleDto()
-            {
-                id = record.Vehicle.Id,
-                PlateNumber = record.Vehicle.PlateNumber,
-            },
-            SlotId = record.Slot.Id,
-            Slot = new SlotDto()
-            {
-                id = record.Slot.Id,
-                isOccupied = record.Slot.isOccupied,
-            },
-            id = record.Id,
-            Price = record.Price,
-        };
-        return Result<ParkingRecordDto>.Success(dto);
+        
+        var mappedDto = _mapper.Map<ParkingRecord, ParkingRecordDto>(record);
+        // var dto = new ParkingRecordDto()
+        // {
+        //     EntryTime = record.EntryTime,
+        //     ExitTime = record.ExitTime ?? DateTime.MinValue, // null ise hatayla karsılasiyoruz
+        //     VehicleId = record.Vehicle.Id,
+        //     Vehicle = new VehicleDto()
+        //     {
+        //         id = record.Vehicle.Id,
+        //         PlateNumber = record.Vehicle.PlateNumber,
+        //     },
+        //     SlotId = record.Slot.Id,
+        //     Slot = new SlotDto()
+        //     {
+        //         id = record.Slot.Id,
+        //         isOccupied = record.Slot.isOccupied,
+        //     },
+        //     id = record.Id,
+        //     Price = record.Price,
+        // };
+        return Result<ParkingRecordDto>.Success(mappedDto);
     } // İmplemented and Refactored
 
 
-    public async Task<Result<IEnumerable<ParkingRecordDto>>> GetHistoryByPlateAsync(string plate)
+    public async Task<Result<IEnumerable<ParkingRecordDto>>> GetHistoryByPlateAsync(string plate) // mapped
     {
         var errList = new List<string>();
 
@@ -310,26 +321,29 @@ public class ParkingRecordService : IParkingRecordService
             .ToListAsync();
         // Secilen plakaya gore kayitlari getir 
 
-        var dtoList = records.Select(record => new ParkingRecordDto()
-        {
-            Price = record.Price,
-            id = record.Id,
-            EntryTime = record.EntryTime,
-            ExitTime = record.ExitTime ?? DateTime.MinValue,
-            VehicleId = record.Vehicle.Id,
-            Vehicle = new VehicleDto()
-            {
-                id = record.Vehicle.Id,
-                PlateNumber = record.Vehicle.PlateNumber,
-            },
-            SlotId = record.Slot.Id,
-            Slot = new SlotDto()
-            {
-                id = record.Slot.Id,
-                isOccupied = record.Slot.isOccupied,
-            }
-        }).ToList();
-        return Result<IEnumerable<ParkingRecordDto>>.Success(dtoList);  
+        
+        var mappedList = _mapper.Map<IEnumerable<ParkingRecord>, IEnumerable<ParkingRecordDto>>(records);
+        
+        // var dtoList = records.Select(record => new ParkingRecordDto()
+        // {
+        //     Price = record.Price,
+        //     id = record.Id,
+        //     EntryTime = record.EntryTime,
+        //     ExitTime = record.ExitTime ?? DateTime.MinValue,
+        //     VehicleId = record.Vehicle.Id,
+        //     Vehicle = new VehicleDto()
+        //     {
+        //         id = record.Vehicle.Id,
+        //         PlateNumber = record.Vehicle.PlateNumber,
+        //     },
+        //     SlotId = record.Slot.Id,
+        //     Slot = new SlotDto()
+        //     {
+        //         id = record.Slot.Id,
+        //         isOccupied = record.Slot.isOccupied,
+        //     }
+        // }).ToList();
+        return Result<IEnumerable<ParkingRecordDto>>.Success(mappedList);  
     }
 
     public async Task<Result> GetOccupiedSlotCountAsync()

@@ -1,9 +1,16 @@
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using Ryuka.NlayerApi.Application.Dto.VehicleDto;
 using Ryuka.NlayerApi.Application.Interfaces;
+using Ryuka.NlayerApi.Application.Mapping;
 using Ryuka.NlayerApi.Application.Services;
 using Ryuka.NlayerApi.Core.Abstractions;
 using Ryuka.NlayerApi.Infrastructure.Data;
 using Ryuka.NlayerApi.Infrastructure.Repositories;
+// using AutoMapper;
+
+// using AutoMapper.Extensions.Microsoft.DependencyInjection;
+
 using Ryuka.NlayerApi.Infrastructure.UnitOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +31,11 @@ builder.Services.AddScoped<IParkingRecordRepository, ParkingRecordRepository>();
 builder.Services.AddScoped<IParkingRecordService, ParkingRecordService>();
 builder.Services.AddScoped<ISlotService, SlotService>();
 builder.Services.AddScoped<IVehicleService, VehicleService>();
+
+
+builder.Services.AddAutoMapper(typeof(VehicleProfile).Assembly);
+builder.Services.AddAutoMapper(typeof(SlotProfile).Assembly);
+builder.Services.AddAutoMapper(typeof(ParkingRecordProfile).Assembly);
 
 builder.Services.AddControllers();
 
